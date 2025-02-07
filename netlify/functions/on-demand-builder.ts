@@ -9,6 +9,21 @@ const getClientSecret = () => {
 };
 
 export const myHandler: Handler = async (event, context) => {
+  const requestKey = event.headers['x-api-key'];
+  console.log('event', event);
+  console.log('event.headers', event.headers);
+  const apiKey = process.env.LOCAL_API_KEY
+  console.log('requestKey', requestKey);
+  console.log('apiKey', apiKey)
+  if (requestKey !== apiKey) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'no access' })
+    }
+  }
+
+
+
   const CLIENT_ID = getClientKey();
   const CLIENT_SECRET = getClientSecret();
 

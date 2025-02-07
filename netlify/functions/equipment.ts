@@ -13,8 +13,14 @@ export default async (req, context: Context) => {
 
         console.log('params', params)
         // Fetch the response from the "on-demand-builder" function
-        const builderResponse = await fetch(`${process.env.URL}/.netlify/functions/on-demand-builder`);
-
+        const builderResponse = await fetch(`${process.env.URL}/.netlify/functions/on-demand-builder`,
+            {
+                headers: {
+                    'X-API-Key': process.env.LOCAL_API_KEY
+                },
+            }
+        );
+        console.log('builderResponse', builderResponse)
         // Check if the response is successful
         if (!builderResponse.ok) {
             throw new Error(`Failed to fetch data: ${builderResponse.statusText}`);
@@ -32,7 +38,9 @@ export default async (req, context: Context) => {
 
             const response = await fetch(apiUrl, {
                 method: "GET",
-                headers: { Authorization: `Bearer ${accessToken}` },
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
 
             });
             if (!response.ok) {
