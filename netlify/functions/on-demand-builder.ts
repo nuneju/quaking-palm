@@ -1,8 +1,16 @@
 import { builder, type Handler } from "@netlify/functions";
 
+
+const getClientKey = () => {
+  return Netlify.env.get("BLIZZARD_CLIENT_ID");
+};
+const getClientSecret = () => {
+  return Netlify.env.get("BLIZZARD_CLIENT_SECRET");
+};
+
 export const myHandler: Handler = async (event, context) => {
-  const CLIENT_ID = Netlify.env.get("BLIZZARD_CLIENT_ID");
-  const CLIENT_SECRET = Netlify.env.get("BLIZZARD_CLIENT_SECRET");
+  const CLIENT_ID = getClientKey();
+  const CLIENT_SECRET = getClientSecret();
 
 
   try {
