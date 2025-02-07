@@ -2,10 +2,10 @@ import { builder, type Handler } from "@netlify/functions";
 
 
 const getClientKey = () => {
-  return Netlify.env.get("BLIZZARD_CLIENT_ID");
+  return process.env.BLIZZARD_CLIENT_ID;
 };
 const getClientSecret = () => {
-  return Netlify.env.get("BLIZZARD_CLIENT_SECRET");
+  return process.env.BLIZZARD_CLIENT_SECRET;
 };
 
 export const myHandler: Handler = async (event, context) => {
